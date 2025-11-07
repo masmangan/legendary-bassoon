@@ -69,6 +69,56 @@ go test ./... -v
 - O sistema usa variáveis de ambiente para configuração segura
 - Todos os testes incluem mensagens descritivas para facilitar a depuração
 
+## Testes UI com Selenium (opcional)
+
+Adicionei testes de interface que usam Selenium WebDriver (chromedriver) em `internal/ui`.
+Por segurança os arquivos de teste UI usam a build tag `ui` e não são executados por padrão.
+
+Passos rápidos para executar os testes UI (Windows PowerShell):
+
+1. Baixe o chromedriver compatível com sua versão do Google Chrome: https://chromedriver.chromium.org/
+2. Coloque o `chromedriver.exe` em uma pasta e execute-o (exemplo assume porta 9515):
+
+```powershell
+# navegue até a pasta onde está chromedriver.exe
+.\chromedriver.exe --port=9515
+```
+
+3. Execute os testes UI com a tag `ui`:
+
+```powershell
+# roda apenas os testes marcados com //go:build ui
+go test -tags=ui ./internal/ui -v
+```
+
+Se o chromedriver não estiver rodando, os testes UI serão pulados automaticamente (usamos t.Skip).
+
+Variáveis de ambiente adicionais:
+
+- `SELENIUM_URL` (opcional): URL do WebDriver (padrão: http://127.0.0.1:9515)
+
+Observação: os seletores usados nos testes UI são flexíveis (tentamos alguns seletores comuns). Dependendo da versão da interface do OrangeHRM pode ser necessário ajustar os seletores.
+
+### Scripts úteis (PowerShell)
+
+Criei dois scripts em `scripts/` para automatizar o download/início do chromedriver e para rodar os testes UI localmente.
+
+- `scripts/install-chromedriver.ps1`: tenta detectar a versão do Chrome instalada, baixa a versão compatível do chromedriver e extrai `chromedriver.exe` na pasta atual.
+- `scripts/run-ui-tests.ps1`: inicia o `chromedriver.exe` em background (porta 9515) e executa os testes UI; ao finalizar, tenta encerrar o processo do chromedriver.
+
+Uso rápido (PowerShell):
+
+```powershell
+# Baixa e prepara chromedriver na pasta ./scripts
+cd .\scripts
+.\install-chromedriver.ps1
+
+# Inicia chromedriver em background e executa testes UI
+.\run-ui-tests.ps1
+```
+
+Esses scripts facilitam a execução dos testes por qualquer desenvolvedor Windows sem ter que lembrar os comandos exatos.
+
 ---
 Repositório do semestre anterior:
 https://github.com/masmangan/fantastic-octo-eureka
