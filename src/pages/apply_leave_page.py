@@ -6,7 +6,6 @@ class ApplyLeavePage(BasePage):
         self.x(f"//span[normalize-space(text())='{type_label}']").click()
 
     def set_from_date(self, yyyy_mm_dd):
-        # Em geral há dois inputs (from/to). Usamos o primeiro (um dia).
         inputs = self.driver.find_elements("css selector", "input[placeholder='yyyy-mm-dd']")
         inputs[0].clear()
         inputs[0].send_keys(yyyy_mm_dd)

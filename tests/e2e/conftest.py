@@ -11,11 +11,9 @@ def base_url():
 @pytest.fixture
 def driver():
     opts = Options()
-    # Se precisar rodar sem abrir janela (CI), descomente:
-    # opts.add_argument("--headless=new")
     opts.add_argument("--start-maximized")
     service = Service(ChromeDriverManager().install())
     drv = webdriver.Chrome(service=service, options=opts)
-    drv.implicitly_wait(6)   # espera curta e resiliente
+    drv.implicitly_wait(6) 
     yield drv
     drv.quit()

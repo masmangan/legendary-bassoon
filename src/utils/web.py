@@ -7,5 +7,4 @@ def shoot(driver, name):
     return path
 
 def by_text(driver, tag, text):
-    # Busca por texto visível (robusto quando CSS muda)
     return driver.find_element(By.XPATH, f"//{tag}[normalize-space(text())='{text}']")
