@@ -69,7 +69,7 @@ go test ./... -v
 - O sistema usa variáveis de ambiente para configuração segura
 - Todos os testes incluem mensagens descritivas para facilitar a depuração
 
-## Testes UI com Selenium (opcional)
+## Testes UI com Selenium
 
 Adicionei testes de interface que usam Selenium WebDriver (chromedriver) em `internal/ui`.
 Por segurança os arquivos de teste UI usam a build tag `ui` e não são executados por padrão.
@@ -95,7 +95,7 @@ Se o chromedriver não estiver rodando, os testes UI serão pulados automaticame
 
 Variáveis de ambiente adicionais:
 
-- `SELENIUM_URL` (opcional): URL do WebDriver (padrão: http://127.0.0.1:9515)
+- `SELENIUM_URL`: URL do WebDriver (padrão: http://127.0.0.1:9515)
 
 Observação: os seletores usados nos testes UI são flexíveis (tentamos alguns seletores comuns). Dependendo da versão da interface do OrangeHRM pode ser necessário ajustar os seletores.
 
