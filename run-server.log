@@ -1,0 +1,19 @@
+[Fri Nov  7 22:46:21 2025] PHP 8.2.29 Development Server (http://127.0.0.1:8080) started
+[Fri Nov  7 23:09:27 2025] 127.0.0.1:48678 Accepted
+[Fri Nov  7 23:09:27 2025] 127.0.0.1:48678 [200]: GET /register.html
+[Fri Nov  7 23:09:27 2025] 127.0.0.1:48678 Closing
+[Fri Nov  7 23:09:27 2025] 127.0.0.1:48690 Accepted
+[Fri Nov  7 23:09:27 2025] 127.0.0.1:48704 Accepted
+[Fri Nov  7 23:09:28 2025] 127.0.0.1:48690 [404]: GET /favicon.ico - No such file or directory
+[Fri Nov  7 23:09:28 2025] 127.0.0.1:48690 Closing
+[Fri Nov  7 23:09:29 2025] 127.0.0.1:48704 [200]: GET /login.html?name=Usu%C3%A1rio+Selenium&email=selenium_1762567768%40example.com&password=Senha123%21&password_confirm=Senha123%21
+[Fri Nov  7 23:09:29 2025] 127.0.0.1:48704 Closing
+[Fri Nov  7 23:09:30 2025] 127.0.0.1:48708 Accepted
+[Fri Nov  7 23:09:30 2025] 127.0.0.1:48716 Accepted
+[Fri Nov  7 23:09:32 2025] 127.0.0.1:48708 [200]: GET /dashboard.html?email=selenium_1762567768%40example.com&password=Senha123%21
+[Fri Nov  7 23:09:32 2025] 127.0.0.1:48708 Closing
+[Fri Nov  7 23:09:32 2025] 127.0.0.1:48726 Accepted
+[Fri Nov  7 23:09:33 2025] 127.0.0.1:48726 Closed without sending a request; it was probably just an unused speculative preconnection
+[Fri Nov  7 23:09:33 2025] 127.0.0.1:48726 Closing
+[Fri Nov  7 23:09:33 2025] 127.0.0.1:48716 Closed without sending a request; it was probably just an unused speculative preconnection
+[Fri Nov  7 23:09:33 2025] 127.0.0.1:48716 Closing
