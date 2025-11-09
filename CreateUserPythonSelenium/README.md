@@ -18,14 +18,31 @@ Este documento descreve os testes automatizados para a funcionalidade de **cria�
 5. Clicar no botão "Save"
 6. Verificar mensagem de sucesso
 
-
 ## O que eu fiz?
 
-- 
+Implementei um **teste de sistema** (end-to-end) automatizado usando Selenium e Python.
+
+* **Tecnologia:** Selenium WebDriver com Python.
+* **Cenário:** O script `createUserTest.py` automatiza o "Fluxo Principal" descrito acima.
+* **Robustez:** O script utiliza `WebDriverWait` para lidar com esperas dinâmicas (elementos que demoram a carregar), evitando que o teste falhe por lentidão da página.
+* **Dado de Teste:** O *username* é gerado aleatoriamente (`testuserXXXX`) para garantir que o teste possa ser executado várias vezes sem conflito de usuário existente.
 
 ## Setup para o teste
 
-### Como executar 
+### Pré-requisitos
 
-## Código:
+Para executar este teste, você precisará ter o **Python** instalado, juntamente com a biblioteca do **Selenium** e um **WebDriver** compatível com seu navegador.
 
+1.  **Instale a biblioteca do Selenium:**
+    ```bash
+    pip install selenium
+    ```
+
+
+### Como executar
+
+Após configurar os pré-requisitos, basta executar o script Python:
+
+```bash
+python createUserTest.py
+```
