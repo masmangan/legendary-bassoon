@@ -101,23 +101,37 @@ Observação: os seletores usados nos testes UI são flexíveis (tentamos alguns
 
 ### Scripts úteis (PowerShell)
 
-Criei dois scripts em `scripts/` para automatizar o download/início do chromedriver e para rodar os testes UI localmente.
+Criei 3 scripts em `scripts/` para tornar fácil baixar o chromedriver e executar os testes:
 
-- `scripts/install-chromedriver.ps1`: tenta detectar a versão do Chrome instalada, baixa a versão compatível do chromedriver e extrai `chromedriver.exe` na pasta atual.
-- `scripts/run-ui-tests.ps1`: inicia o `chromedriver.exe` em background (porta 9515) e executa os testes UI; ao finalizar, tenta encerrar o processo do chromedriver.
+1. **`install-chromedriver.ps1`**: Detecta a versão do Chrome, baixa o chromedriver compatível e extrai na pasta.
 
-Uso rápido (PowerShell):
+2. **`run-ui-tests.ps1`**: Inicia o chromedriver, executa os testes UI e exibe os resultados no Chrome (deixa o navegador aberto para inspeção).
+
+3. **`open-orangehrm.ps1`**: Abre diretamente o OrangeHRM no Chrome sem rodar testes — perfeito para explorar a interface manualmente.
+
+#### Uso rápido (PowerShell):
 
 ```powershell
-# Baixa e prepara chromedriver na pasta ./scripts
+# 1. Entre na pasta scripts
 cd .\scripts
+
+# 2. Baixa e instala o chromedriver (primeira vez)
 .\install-chromedriver.ps1
 
-# Inicia chromedriver em background e executa testes UI
+# 3. Escolha uma opção:
+
+# Opção A: Rodar os testes automaticamente
 .\run-ui-tests.ps1
+
+# Opção B: Apenas abrir o OrangeHRM no Chrome
+.\open-orangehrm.ps1
 ```
 
-Esses scripts facilitam a execução dos testes por qualquer desenvolvedor Windows sem ter que lembrar os comandos exatos.
+O navegador Chrome abrirá automaticamente. Os testes rodam, fazem login e exibem o resultado no navegador. Você pode inspecionar manualmente antes de encerrar o chromedriver.
+
+Para encerrar o chromedriver após os testes:
+- Pressione `Ctrl+C` na janela do PowerShell
+- Ou execute: `taskkill /PID <numero> /F` (o número é mostrado na tela)
 
 ---
 Repositório do semestre anterior:

@@ -26,7 +26,9 @@ func TestLoginUI(t *testing.T) {
 		// If webdriver not available, skip UI tests
 		t.Skipf("Skipping UI tests: %v", err)
 	}
-	defer cleanup()
+	// Comentado: deixar o navegador aberto após testes para inspeção
+	// defer cleanup()
+	_ = cleanup // cleanup disponível para uso manual se necessário
 
 	baseURL := os.Getenv("ORANGEHRM_BASE_URL")
 	if baseURL == "" {
@@ -116,4 +118,8 @@ func TestLoginUI(t *testing.T) {
 	}
 
 	assert.True(t, success, "expected to reach dashboard after login")
+	
+	// Aguarda alguns segundos para o usuário ver o resultado
+	t.Log("✓ Login bem-sucedido! Pressione Ctrl+C no chromedriver para encerrar.")
+	time.Sleep(5 * time.Second)
 }
