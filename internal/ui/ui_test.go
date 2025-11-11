@@ -118,7 +118,7 @@ func TestLoginUI(t *testing.T) {
 	}
 
 	assert.True(t, success, "expected to reach dashboard after login")
-	
+
 	// Aguarda alguns segundos para o usuário ver o resultado
 	t.Log("✓ Login bem-sucedido! Pressione Ctrl+C no chromedriver para encerrar.")
 	time.Sleep(5 * time.Second)
