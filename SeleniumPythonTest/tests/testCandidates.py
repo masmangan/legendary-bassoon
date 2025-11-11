@@ -1,12 +1,8 @@
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service
-import time
-import uuid
+import time, random
 
 # Configurações
 BASE_URL = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
@@ -19,92 +15,124 @@ SLEEP_INPUT = 1  # segundos para pausas entre inputs
 # Abrir o navegador Chrome
 driver = webdriver.Chrome()
 driver.maximize_window()
-
 driver.get(BASE_URL)
 time.sleep(SLEEP)
 
-# Preencher o campo de username
-username_input = WebDriverWait(driver, 10).until(
+# Login
+username_input = WebDriverWait(driver, WAIT).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "input[placeholder='Username']")))
-
 username_input.send_keys(USERNAME)
 
-# Preencher o campo de password
 password_input = driver.find_element(By.CSS_SELECTOR, "input[placeholder='Password']")
 password_input.send_keys(PASSWORD)
 
-# Clicar no botão de login
 login_button = driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
 login_button.click()
-
 time.sleep(SLEEP)
 
-# Navegar para a aba de candidatos
+# Ir para aba Recruitment
 candidates_button = WebDriverWait(driver, WAIT).until(
     EC.visibility_of_element_located((By.XPATH, "//span[text()='Recruitment']")))
 candidates_button.click()
 time.sleep(SLEEP)
 
-
-# Clicar no botão Add, que abre o formulário de criaçao de candidato
+# Clicar em Add
 add_button = WebDriverWait(driver, WAIT).until(
     EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Add']")))
 add_button.click()
-
 time.sleep(SLEEP)
 
-# Preencher o campo de nome
-nome_field = driver.find_element(By.XPATH, "//input[@placeholder='First Name']")
-nome_field.send_keys("teste")
-time.sleep(SLEEP_INPUT)
+# Lista com 40 nomes individuais
+nomes_unicos = [
+    "Lucas", "Mariana", "Rafael", "Beatriz", "Thiago", "Camila", "Gustavo", "Larissa",
+    "Felipe", "Ana", "Pedro", "Isabela", "André", "Bianca", "Joao", "Gabriela",
+    "Matheus", "Amanda", "Daniel", "Bruna", "Caio", "Leticia", "Eduardo", "Sofia",
+    "Rodrigo", "Manuela", "Leonardo", "Clara", "Henrique", "Julia", "Fernando", "Lorena",
+    "Vitor", "Marina", "Arthur", "Carolina", "Bruno", "Heloisa", "Diego", "Vitoria"
+]
 
-sobrenome1_field = driver.find_element(By.XPATH, "//input[@placeholder='Middle Name']")
-sobrenome1_field.send_keys("sobrenome1")
-time.sleep(SLEEP_INPUT)
+# Dados do candidato
+nome = random.choice(nomes_unicos)
+sobrenome1 = random.choice(nomes_unicos)
+sobrenome2 = random.choice(nomes_unicos)
+nome_completo = f"{nome} {sobrenome1} {sobrenome2}"
 
-sobrenome2_field = driver.find_element(By.XPATH, "//input[@placeholder='Last Name']")
-sobrenome2_field.send_keys("sobrenome2")
-time.sleep(SLEEP_INPUT)
+# Preencher formulário
+driver.find_element(By.XPATH, "//input[@placeholder='First Name']").send_keys(nome)
+driver.find_element(By.XPATH, "//input[@placeholder='Middle Name']").send_keys(sobrenome1)
+driver.find_element(By.XPATH, "//input[@placeholder='Last Name']").send_keys(sobrenome2)
+driver.find_element(By.XPATH, "(//input[@placeholder='Type here'])[1]").send_keys("email_teste@gmail.com")
 
-
-# Preencher o campo de User Role
 candidate_vacancy_dropdown = WebDriverWait(driver, WAIT).until(
     EC.element_to_be_clickable((By.XPATH, "(//div[@class='oxd-select-text-input'])[1]")))
 candidate_vacancy_dropdown.click()
 time.sleep(SLEEP_INPUT)
 
-admin_option = WebDriverWait(driver, 10).until(
+account_option = WebDriverWait(driver, WAIT).until(
     EC.element_to_be_clickable((By.XPATH, "//div[@role='listbox']//span[text()='Junior Account Assistant']")))
-admin_option.click()
+account_option.click()
 time.sleep(SLEEP_INPUT)
 
-
-# Preencher o campo de email
-employee_input = driver.find_element(By.XPATH, "(//input[@placeholder='Type here'])[1]")
-employee_input.send_keys("email_teste@gmail.com")
-time.sleep(SLEEP_INPUT)
-
-
-# Clicar no botão Save
-save_button = driver.find_element(By.XPATH, "//button[@type='submit']")
-save_button.click()
+# Cadastrar candidato
+submit_button = driver.find_element(By.XPATH, "//button[@type='submit']")
+submit_button.click()
 time.sleep(SLEEP)
 
-# Clicar no botão de Shortlist
-#   shortlist_button = WebDriverWait(driver, WAIT).until(
-#       EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Shortlist']")))
-#   shortlist_button.click()
-#   time.sleep(SLEEP)
-
-# Clicar no botão de reject
-#   reject_button = driver.find_element(By.XPATH, "//button[normalize-space()='Reject']")
-#   reject_button.click()
-#   time.sleep(SLEEP)
+# Rejeitar candidato
+reject_button = WebDriverWait(driver, WAIT).until(
+    EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Reject']")))
+reject_button.click()
+time.sleep(SLEEP_INPUT)
 
 # Preencher o campo de notes
-#   notes_input = driver.find_element(By.XPATH, "//input[@placeholder='Type here']")
-#   if(reject_button is not None):
-#       notes_input.send_keys("candidato rejeitado")
-#   else:
-#       notes_input.send_keys("bom candidato")
-#   time.sleep(SLEEP_INPUT)
+notes_input = WebDriverWait(driver, WAIT).until(
+    EC.visibility_of_element_located((By.XPATH, "//textarea[@placeholder='Type here']")))
+notes_input.send_keys("candidato ruim")
+time.sleep(SLEEP_INPUT)
+
+save_button = driver.find_element(By.XPATH, "//button[normalize-space()='Save']")
+save_button.click()
+time.sleep(SLEEP * 1.5)
+
+# Voltar para aba candidatos
+candidates_button = WebDriverWait(driver, WAIT).until(
+    EC.visibility_of_element_located((By.XPATH, "//span[text()='Recruitment']")))
+candidates_button.click()
+time.sleep(SLEEP)
+
+# Procurar o candidato pelo nome
+search_input = WebDriverWait(driver, WAIT).until(
+    EC.visibility_of_element_located((By.XPATH, "//label[text()='Candidate Name']/../following-sibling::div//input")))
+search_input.send_keys(nome)
+time.sleep(SLEEP_INPUT*2)
+
+# Esperar a lista suspensa aparecer e clicar na primeira opção
+first_suggestion = WebDriverWait(driver, WAIT).until(
+    EC.element_to_be_clickable((By.XPATH, "//div[@role='listbox']//div[@role='option'][1]")))
+first_suggestion.click()
+time.sleep(SLEEP_INPUT)
+
+# Clicar no botão Search
+search_button = driver.find_element(By.XPATH, "//button[normalize-space()='Search']")
+search_button.click()
+time.sleep(SLEEP)
+
+# Esperar a tabela atualizar e clicar no ícone de lixeira
+delete_icon = WebDriverWait(driver, WAIT).until(
+    EC.element_to_be_clickable((By.XPATH, "//i[@class='oxd-icon bi-trash']")))
+delete_icon.click()
+time.sleep(SLEEP_INPUT)
+
+# Confirmar exclusão no modal
+confirm_delete_button = WebDriverWait(driver, WAIT).until(
+    EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Yes, Delete']")))
+confirm_delete_button.click()
+time.sleep(SLEEP)
+
+# Fechar navegador
+driver.quit()
+
+
+print("\n\n\n==============================================================================")
+print(f"\nCandidato '{nome_completo}' criado, rejeitado e excluído com sucesso!")
+print("\n==============================================================================")
