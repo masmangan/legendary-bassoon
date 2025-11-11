@@ -6,6 +6,15 @@ Este plano de testes contempla o sistema OrangeHRM, focado no fluxo de criação
 
 O teste foi implementado em Python usando a biblioteca Selenium WebDriver para automatizar o processo completo de cadastro de um novo usuário no sistema.
 
+## Desenvolvimento do trabalho
+
+Na primeira aula eu naveguei pelo sistema para me habituar com o mesmo e vi quais haviam sido os testes implementados no semestre passado. Com base nisso, escolhi o fluxo que teste que eu implementaria.
+
+Na segunda aula, organizei a estrutura do README.md para estabelecer o Plano de Testes, definindo claramente os Objetivos, Casos de Teste, Entradas e Resultados Esperados antes de iniciar o código.
+
+Nos dias seguintes, desenvolvi o código do teste do fluxo escolhido. Para isso é importante comentar que utilizei como base o teste de fazer login no sistema, implementado no semestre passado, visto que no meu fluxo isso seria necessário também. Além disso, finalizei o README com a documentação do processo.
+
+
 ## Como executar
 
 ### 1. Crie um ambiente Virtual
