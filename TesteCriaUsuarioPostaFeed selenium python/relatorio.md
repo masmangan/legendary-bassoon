@@ -2,9 +2,9 @@
 
 ## Desenvolvimento do Teste Automatizado
 
-Na **primeira aula**, observei os testes automatizados produzidos pelos alunos do semestre passado. A partir dessa análise, escolhi qual fluxo eu iria implementar neste trabalho.
+Na primeira aula, observei os testes automatizados produzidos pelos alunos do semestre passado. A partir dessa análise, escolhi qual fluxo eu iria implementar neste trabalho.
 
-Na **segunda aula**, utilizei como base um código de login desenvolvido por um aluno do semestre anterior. Adaptei esse código ao meu próprio projeto. Além disso, implementei todo o restante da automação: criação de um novo usuário a partir do painel administrativo, realização de logout, login com o usuário recém-criado e, por fim, a publicação de um post na área **“Buzz”** do sistema.
+Na segunda aula, utilizei como base um código de login desenvolvido por um aluno do semestre anterior. Adaptei esse código ao meu próprio projeto. Além disso, implementei todo o restante da automação: criação de um novo usuário a partir do painel administrativo, realização de logout, login com o usuário recém-criado e, por fim, a publicação de um post na área **“Buzz”** do sistema.
 
 ---
 
@@ -12,11 +12,11 @@ Na **segunda aula**, utilizei como base um código de login desenvolvido por um 
 
 O teste implementado consiste nos seguintes passos:
 
-1. Logar no sistema como **Admin**.  
-2. Acessar o módulo **Admin** e criar um **novo usuário**.  
-3. Realizar **logout** da conta administrativa.  
-4. Logar no sistema utilizando o **usuário recém-criado**.  
-5. Acessar o módulo **Buzz** e **publicar uma mensagem**.
+1. Logar no sistema como Admin.  
+2. Acessar o módulo Admin e criar um novo usuario.  
+3. Realizar logout da conta administrativa.  
+4. Logar no sistema utilizando o usuario recem criado.  
+5. Acessar o módulo Buzz e publicar uma mensagem
 
 Esse fluxo verifica tanto funcionalidades administrativas quanto o comportamento comum de um usuário final.
 
@@ -66,7 +66,7 @@ O código é organizado em funções que refletem as etapas reais da utilizaçã
 - **post_on_buzz()** – acessa a área Buzz, localiza o campo de postagem e envia a mensagem desejada.  
 - **run_flow()** – função principal que organiza o fluxo completo do teste, executando cada etapa na ordem correta.  
 
-O uso de **WebDriverWait** garante que todos os elementos estejam visíveis ou clicáveis antes da interação, evitando falhas por carregamento lento da interface.
+O uso de WebDriverWait garante que todos os elementos estejam visíveis ou clicáveis antes da interação, evitando falhas por carregamento lento da interface.
 
 ---
 
@@ -166,3 +166,4 @@ if __name__ == "__main__":
     run_flow()
 ```
 
+Esse relatorio.md foi escrito com ajuda do chatgpt
