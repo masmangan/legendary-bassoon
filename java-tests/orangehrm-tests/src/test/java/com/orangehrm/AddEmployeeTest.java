@@ -1,20 +1,27 @@
 package com.orangehrm;
 
-import org.junit.jupiter.api.*;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.*;
-import org.openqa.selenium.support.ui.*;
+import com.orangehrm.pages.LoginPage;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
+
+import com.orangehrm.pages.AddEmployeePage;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 
 import java.time.Duration;
 
-public class LoginTest {
+public class AddEmployeeTest {
 
     private WebDriver driver;
     private WebDriverWait wait;
 
-
-@BeforeEach
+ @BeforeEach
 public void setUp() {
     WebDriverManager.chromedriver().setup();
 
@@ -45,17 +52,18 @@ public void setUp() {
 }
 
 
-    @Test
-    public void testLoginComSucesso() {
-        driver.get("https://opensource-demo.orangehrmlive.com/");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("username"))).sendKeys("Admin");
-        driver.findElement(By.name("password")).sendKeys("admin123");
-        driver.findElement(By.cssSelector("button[type='submit']")).click();
 
-        // Verifica se login deu certo
-        boolean dashboardVisivel = wait.until(ExpectedConditions
-                .urlContains("/dashboard"));
-        Assertions.assertTrue(dashboardVisivel, "Falha ao fazer login!");
+    @Test
+    public void testAddEmployee() {
+        // Navega até a tela de PIM → Add Employee
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='PIM']"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Add Employee']"))).click();
+
+        AddEmployeePage addEmployeePage = new AddEmployeePage(driver);
+        addEmployeePage.addEmployee("Helio", "Testador");
+
+        Assertions.assertTrue(addEmployeePage.isEmployeeCreated(),
+                "Erro: O funcionário não foi criado corretamente.");
     }
 
     @AfterEach
