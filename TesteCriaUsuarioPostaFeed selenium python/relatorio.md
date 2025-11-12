@@ -65,6 +65,7 @@ O código é organizado em funções que refletem as etapas reais da utilizaçã
 - **logout()** – abre o menu do usuário logado e efetua a saída do sistema.  
 - **post_on_buzz()** – acessa a área Buzz, localiza o campo de postagem e envia a mensagem desejada.  
 - **run_flow()** – função principal que organiza o fluxo completo do teste, executando cada etapa na ordem correta.  
+**select_dropdown_by_label()** – função auxiliar que abre um menu suspenso de seleção (dropdown) baseado no rótulo exibido ao lado do campo, garantindo que o valor correto (“Admin”, “ESS”) seja realmente selecionado.
 
 O uso de WebDriverWait garante que todos os elementos estejam visíveis ou clicáveis antes da interação, evitando falhas por carregamento lento da interface.
 
@@ -98,6 +99,28 @@ def logout(driver):
 def open_admin_users_page(driver):
     wait_clickable(driver, By.XPATH, "//span[normalize-space()='Admin']").click()
     wait_visible(driver, By.XPATH, "//button[.//i[contains(@class,'bi-plus')]]")
+
+def select_dropdown_by_label(driver, label_text, option_text):
+    field = wait_clickable(
+        driver,
+        By.XPATH,
+        f"//label[normalize-space()='{label_text}']/../following-sibling::div//div[contains(@class,'oxd-select-text')]"
+    )
+    field.click()
+
+    wait_clickable(
+        driver,
+        By.XPATH,
+        f"//div[@role='listbox']//*[self::span or self::div][normalize-space()='{option_text}']"
+    ).click()
+
+    # valida seleção
+    selected = wait_visible(
+        driver,
+        By.XPATH,
+        f"//label[normalize-space()='{label_text}']/../following-sibling::div//div[contains(@class,'oxd-select-text-input')]"
+    ).text.strip()
+    assert selected.lower() == option_text.lower(), f"{label_text} ficou '{selected}', esperava '{option_text}'"
 
 def create_user(driver, employee_name, new_username, new_password, role_text="Admin", status_text="Enabled"):
     open_admin_users_page(driver)
