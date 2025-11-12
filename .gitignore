@@ -1,0 +1,6 @@
+# Ignorar dependências e arquivos temporários
+/vendor/
+/composer.lock
+/.phpunit.cache/
+/node_modules/
+
