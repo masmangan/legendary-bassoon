@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from pathlib import Path
 
 # Variável global para a URL
 ADMIN_URL = "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewOrganizationGeneralInformation"
@@ -85,3 +86,38 @@ def logged_in_driver(driver):
         print("Logout realizado com sucesso.")
     except Exception as e:
         print(f"Erro durante o logout: {e}")
+
+
+# Criação antecipada das pastas de relatório
+def pytest_configure(config):
+    from pathlib import Path
+    base_dir = Path(__file__).resolve().parents[1]  # .../orange_tests
+    reports_dir = base_dir / "reports"
+    (reports_dir / "html").mkdir(parents=True, exist_ok=True)
+    (reports_dir / "xml").mkdir(parents=True, exist_ok=True)
+    (reports_dir / "logs").mkdir(parents=True, exist_ok=True)
+    (reports_dir / "screenshots").mkdir(parents=True, exist_ok=True)
+    screenshots_dir = reports_dir / "screenshots"
+    reports_dir.mkdir(parents=True, exist_ok=True)
+    screenshots_dir.mkdir(parents=True, exist_ok=True)
+
+# Captura de screenshot em caso de falha
+import pytest
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+    if report.when == "call":
+        driver = None
+        if "logged_in_driver" in item.fixturenames:
+            driver = item.funcargs.get("logged_in_driver")
+        elif "driver" in item.fixturenames:
+            driver = item.funcargs.get("driver")
+        if driver:
+            from pathlib import Path
+            screenshots_dir = Path(__file__).resolve().parents[1] / "reports" / "screenshots"
+            screenshots_dir.mkdir(parents=True, exist_ok=True)
+            status = "passed" if report.passed else "failed"
+            filename = item.nodeid.replace("::", "__").replace("/", "_").replace("\\", "_") + f"__{status}.png"
+            driver.save_screenshot(str(screenshots_dir / filename))
