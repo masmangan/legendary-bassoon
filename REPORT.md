@@ -1,4 +1,4 @@
-# Relatório da Suíte de Testes Automatizados do OrangeHRM
+# Relatório da Suíte de Testes Automatizados do OrangeHRM - Julian F. R. V. Silveira
 
 ## Visão Geral
 
