@@ -1,0 +1,21 @@
+# Arquivos do ambiente virtual
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Arquivos de configuração locais
+*.env
+.env
+
+# Arquivos temporários do sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Configurações do VSCode e IDEs
+.vscode/
+.idea/
