@@ -46,6 +46,8 @@ source venv/bin/activate
 
 pip install -r requirements.txt
 
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
 sudo apt update
 sudo apt -f install
 sudo apt install ./google-chrome-stable_current_amd64.deb
@@ -69,13 +71,11 @@ python -m venv venv
 source venv/bin/activate # No linux
 
 .\venv\Scripts\activate # No windows
-
 ```
 
 #### 3. Instale as dependências
 ```bash
 pip install -r requirements.txt 
-
 ```
 
 #### 4. Execute o teste
@@ -138,6 +138,14 @@ A jornada de usuário contempla:
 **Observações:** 
 1. Usuário criado com sucesso e mensagem de confirmação exibida. O username gerado aleatoriamente garante unicidade em cada execução do teste, evitando conflitos com usuários existentes.
 2. Se o usuário gerado já existir o teste irá falhar
+
+
+
+
+
+
+
+
 
 
 Escrito com auxílio de IA 
