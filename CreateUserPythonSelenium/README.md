@@ -34,13 +34,21 @@ CreateUserPythonSelenium/
 
 ### No Codespace
 
-#### 1. Abra o Codespace e aguarde o setup automático (1-2 minutos)
-
-#### 2. Ative o ambiente virtual:
+#### 1. Crie e ative o ambiente virtual:
 ```bash
+python -m venv venv
 
 source venv/bin/activate 
+```
 
+#### 2. Baixe as dependencias:
+```bash
+
+pip install -r requirements.txt
+
+sudo apt update
+sudo apt -f install
+sudo apt install ./google-chrome-stable_current_amd64.deb
 ```
 
 #### 3. Execute o teste
