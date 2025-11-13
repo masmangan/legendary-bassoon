@@ -1,0 +1,24 @@
+{
+  "name": "legendary-bassoon",
+  "version": "1.0.0",
+  "description": "Teste do Orange",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/masmangan/legendary-bassoon.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/masmangan/legendary-bassoon/issues"
+  },
+  "homepage": "https://github.com/masmangan/legendary-bassoon#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "playwright": "^1.56.1"
+  }
+}
