@@ -69,7 +69,7 @@ candidate_vacancy_dropdown.click()
 time.sleep(SLEEP_INPUT)
 
 account_option = WebDriverWait(driver, WAIT).until(
-    EC.element_to_be_clickable((By.XPATH, "//div[@role='listbox']//span[text()='addddd']")))
+    EC.element_to_be_clickable((By.XPATH, "//div[@role='listbox']//span[text()='Junior Account Assistant']")))
 account_option.click()
 time.sleep(SLEEP_INPUT)
 
