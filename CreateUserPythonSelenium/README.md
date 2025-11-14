@@ -14,31 +14,73 @@ Na segunda aula, organizei a estrutura do README.md para estabelecer o Plano de 
 
 Nos dias seguintes, desenvolvi o código do teste do fluxo escolhido. Para isso é importante comentar que utilizei como base o teste de fazer login no sistema, implementado no semestre passado, visto que no meu fluxo isso seria necessário também. Além disso, finalizei o README com a documentação do processo.
 
+Nos dias após o primeiro dia de apresentações, corrigi os problemas que o professor apontou, em especial o fato de o teste inicialmente não ter assert e não conseguir rodar no codespace.
+
+
+## Estrutura do projeto
+
+CreateUserPythonSelenium/
+├── .devcontainer/
+│   └── devcontainer.json          # Configuração do Codespaces
+├── tests/
+│   └── createUserTest.py          # Teste
+├── venv/                          # Ambiente virtual
+├── LICENSE                        # Licença do projeto
+├── README.md                      # Documentação
+└── requirements.txt               # Dependências Python
+
 
 ## Como executar
 
-### 1. Crie um ambiente Virtual
+### No Codespace
+
+#### 1. Crie e ative o ambiente virtual:
 ```bash
-python3 -m venv venv
+python -m venv venv
 
-source venv/bin/activate  # No Linux/macOS
-
-.\venv\Scripts\activate  # No Windows
+source venv/bin/activate 
 ```
 
-### 2. Instale as dependências
-
-Certifique-se de estar na pasta do projeto:
+#### 2. Baixe as dependencias:
 ```bash
+
 pip install -r requirements.txt
-# deve conter selenium e outras dependências necessárias
+
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+sudo apt update
+sudo apt -f install
+sudo apt install ./google-chrome-stable_current_amd64.deb
 ```
 
-### 3. Execute o teste
+#### 3. Execute o teste
 
-Para criação de novo usuário:
 ```bash
-python3 tests/createUserTest.py
+python tests/createUserTest.py
+```
+
+### Localmente
+
+#### 1. Crie um ambiente virtual:
+```bash
+python -m venv venv
+```
+
+#### 2. Ative o ambiente virtual:
+```bash
+source venv/bin/activate # No linux
+
+.\venv\Scripts\activate # No windows
+```
+
+#### 3. Instale as dependências
+```bash
+pip install -r requirements.txt 
+```
+
+#### 4. Execute o teste
+```bash
+python tests/createUserTest.py
 ```
 
 ## Objetivos
@@ -96,3 +138,14 @@ A jornada de usuário contempla:
 **Observações:** 
 1. Usuário criado com sucesso e mensagem de confirmação exibida. O username gerado aleatoriamente garante unicidade em cada execução do teste, evitando conflitos com usuários existentes.
 2. Se o usuário gerado já existir o teste irá falhar
+
+
+
+
+
+
+
+
+
+
+Escrito com auxílio de IA 
