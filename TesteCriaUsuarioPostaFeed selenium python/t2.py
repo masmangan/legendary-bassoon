@@ -16,24 +16,6 @@ def wait_clickable(driver, by, sel, timeout=15):
 def wait_visible(driver, by, sel, timeout=15):
     return WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((by, sel)))
 
-def login(driver, username, password):
-    driver.get(f"{BASE_URL}/web/index.php/auth/login")
-    wait_visible(driver, By.CSS_SELECTOR, 'input[placeholder="Username"]').clear()
-    driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Username"]').send_keys(username)
-    driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Password"]').clear()
-    driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Password"]').send_keys(password)
-    driver.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
-    wait_visible(driver, By.CSS_SELECTOR, "aside.oxd-sidepanel")
-
-def logout(driver):
-    wait_clickable(driver, By.CSS_SELECTOR, "span.oxd-userdropdown-tab").click()
-    wait_clickable(driver, By.XPATH, "//a[normalize-space()='Logout']").click()
-    wait_visible(driver, By.CSS_SELECTOR, 'input[placeholder="Username"]')
-
-def open_admin_users_page(driver):
-    wait_clickable(driver, By.XPATH, "//span[normalize-space()='Admin']").click()
-    wait_visible(driver, By.XPATH, "//button[.//i[contains(@class,'bi-plus')]]")
-
 def select_dropdown_by_label(driver, label_text, option_text):
     field = wait_clickable(
         driver,
@@ -56,6 +38,24 @@ def select_dropdown_by_label(driver, label_text, option_text):
     ).text.strip()
     assert selected.lower() == option_text.lower(), f"{label_text} ficou '{selected}', esperava '{option_text}'"
 
+
+def login(driver, username, password):
+    driver.get(f"{BASE_URL}/web/index.php/auth/login")
+    wait_visible(driver, By.CSS_SELECTOR, 'input[placeholder="Username"]').clear()
+    driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Username"]').send_keys(username)
+    driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Password"]').clear()
+    driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Password"]').send_keys(password)
+    driver.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+    wait_visible(driver, By.CSS_SELECTOR, "aside.oxd-sidepanel")
+
+def logout(driver):
+    wait_clickable(driver, By.CSS_SELECTOR, "span.oxd-userdropdown-tab").click()
+    wait_clickable(driver, By.XPATH, "//a[normalize-space()='Logout']").click()
+    wait_visible(driver, By.CSS_SELECTOR, 'input[placeholder="Username"]')
+
+def open_admin_users_page(driver):
+    wait_clickable(driver, By.XPATH, "//span[normalize-space()='Admin']").click()
+    wait_visible(driver, By.XPATH, "//button[.//i[contains(@class,'bi-plus')]]")
 
 def create_user(driver, employee_name, new_username, new_password, role_text="Admin", status_text="Enabled"):
     open_admin_users_page(driver)
@@ -90,6 +90,7 @@ def create_user(driver, employee_name, new_username, new_password, role_text="Ad
 def post_on_buzz(driver, message_text):
     wait_clickable(driver, By.XPATH, "//span[normalize-space()='Buzz']").click()
 
+    time.sleep(2)
     text_area = wait_visible(driver, By.XPATH, "//textarea[@placeholder=\"What's on your mind?\"]")
     text_area.click()
     text_area.send_keys(message_text)
@@ -97,6 +98,8 @@ def post_on_buzz(driver, message_text):
     wait_clickable(driver, By.XPATH, "//button[@type='submit' and normalize-space()='Post']").click()
 
     wait_visible(driver, By.XPATH, f"//p[contains(normalize-space(), '{message_text}')]")
+    time.sleep(2)
+
 
 def run_flow():
     driver = webdriver.Chrome()
@@ -105,10 +108,12 @@ def run_flow():
 
     admin_user = "Admin"
     admin_pass = "admin123"
-    new_user = "testeT2usuario3"
+    new_user = "testeT2usuario7"
     new_pass = "Senha@123"
     employee = "Ranga Akunuri"
     buzz_msg = "Ola mundo"
+
+    teste_passou = False 
 
     try:
         # 1) Login como Admin
@@ -126,10 +131,23 @@ def run_flow():
         # 5) Postar no Buzz
         post_on_buzz(driver, buzz_msg)
 
-        time.sleep(2)
+        
+
+        assert buzz_msg in driver.page_source, "Mensagem final não encontrada no Buzz"
+
+        teste_passou = True  
+
+    except Exception as e:
+        print(f"[ERRO] O teste falhou: {e}")
 
     finally:
         driver.quit()
+        if teste_passou:
+            print("\n Teste passou com sucesso!\n")
+        else:
+            print("\n Teste falhou\n")
+        
+         
 
 if __name__ == "__main__":
     run_flow()
