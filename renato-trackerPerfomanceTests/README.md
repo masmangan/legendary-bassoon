@@ -24,3 +24,21 @@ O fluxo do teste é o seguinte:
 8.  **Logout:** Encerra a sessão do usuário.
 
 O objetivo deste teste é garantir que o fluxo para adicionar um feedback de desempenho a um funcionário está funcionando como devia.
+
+## Como Executar os Testes
+
+Para executar os testes automatizados, siga os passos abaixo:
+
+1.  **Pré-requisitos:**
+    *   Java Development Kit (JDK) instalado.
+    *   Apache Maven instalado e configurado no seu ambiente.
+
+2.  **Execução:**
+    *   Abra um terminal ou prompt de comando.
+    *   Navegue até o diretório `trackerPerfomanceTests` do projeto.
+    *   Execute o seguinte comando:
+        ```sh
+        mvn test
+        ```
+
+O Maven irá baixar as dependências necessárias, compilar o código e executar os testes definidos na pasta `src/test/java`. Os resultados serão exibidos no terminal.

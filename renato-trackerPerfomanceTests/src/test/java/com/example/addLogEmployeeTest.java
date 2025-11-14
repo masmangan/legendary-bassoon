@@ -19,11 +19,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 import java.time.Duration;
 
 import static org.junit.Assert.assertTrue;
 
-public class addLogEmployee {
+public class addLogEmployeeTest {
 
   private WebDriver driver;
 
@@ -32,7 +34,7 @@ public class addLogEmployee {
   @Before
 
   public void setUp() {
-
+    WebDriverManager.chromedriver().setup();
     driver = new ChromeDriver();
 
     wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -83,8 +85,9 @@ public class addLogEmployee {
 
     driver.findElement(By.xpath("//button[@type='submit']")).click();
 
-    WebElement trackLogsContainer = wait.until(ExpectedConditions
-        .visibilityOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[2]/div[2]")));
+    wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[2]/div[2]"), "Feedback Bacanudo"));
+
+    WebElement trackLogsContainer = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[2]/div[2]"));
     assertTrue("New log entry should be visible within the trackLogs container.",
         trackLogsContainer.getText().contains("Feedback Bacanudo"));
 
