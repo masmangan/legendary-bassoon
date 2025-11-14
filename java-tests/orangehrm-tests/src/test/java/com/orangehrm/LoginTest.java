@@ -1,21 +1,14 @@
 package com.orangehrm;
 
+import com.orangehrm.pages.LoginPage;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginTest extends BaseTest {
-
-    @Test
-    void testSuccessfulLogin() {
-        page.navigate("https://opensource-demo.orangehrmlive.com/");
-
-        page.fill("input[name='username']", "Admin");
-        page.fill("input[name='password']", "admin123");
-        page.click("button[type='submit']");
-
-        // Verificação do dashboard
-        assertTrue(
-            page.locator("h6").first().innerText().contains("Dashboard")
-        );
-    }
+  @Test
+  void deveLogarComSucesso() {
+    new LoginPage(page).open().login("Admin", "admin123");
+    assertTrue(page.url().contains("/dashboard"),
+        "Após login, esperava estar no dashboard. URL atual: " + page.url());
+  }
 }

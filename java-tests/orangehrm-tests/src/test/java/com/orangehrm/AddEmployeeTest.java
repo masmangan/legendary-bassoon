@@ -1,33 +1,28 @@
 package com.orangehrm;
 
+import com.orangehrm.pages.AddEmployeePage;
+import com.orangehrm.pages.LoginPage;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.Instant;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AddEmployeeTest extends BaseTest {
 
-    @Test
-    void testAddEmployee() {
-        // Login
-        page.navigate("https://opensource-demo.orangehrmlive.com/");
-        page.fill("input[name='username']", "Admin");
-        page.fill("input[name='password']", "admin123");
-        page.click("button[type='submit']");
+  @Test
+  void deveAdicionarFuncionario() {
+    new LoginPage(page).open().login("Admin", "admin123");
 
-        // Navegar para PIM
-        page.click("a[href='/web/index.php/pim/viewPimModule']");
+    AddEmployeePage add = new AddEmployeePage(page);
+    add.openPIM();
+    add.openAddEmployeeForm();
 
-        // Add Employee
-        page.click("button:has-text('Add')");
+    String sufixo = String.valueOf(Instant.now().getEpochSecond());
+    add.fillEmployee("Helio", "H", "Strappazzon" + sufixo);
 
-        page.fill("input[name='firstName']", "Helio");
-        page.fill("input[name='lastName']", "TestUser");
-
-        page.click("button[type='submit']");
-
-        // Verificar se redirecionou para Employee Profile
-        page.waitForSelector("h6:has-text('Personal Details')");
-        assertTrue(page.locator("h6").innerText().contains("Personal Details"));
-    }
+    add.save();
+    assertTrue(add.isPersonalDetailsVisible(),
+        "Era esperado ver 'Personal Details' após salvar o funcionário.");
+  }
 }
-
-
