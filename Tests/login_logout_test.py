@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 
 """
-Jornada de Usuário – Login/Logout
+Jornada de Usuário - Login/Logout
 
 1. Acessar página de login.
 2. Inserir usuário.
@@ -48,7 +48,7 @@ try:
     )
     assert dashboard_title.is_displayed(), "ERRO: Dashboard não apareceu após login!"
 
-    print("✔ Login validado com assert.")
+    print(" Login validado com assert.")
 
     # LOGOUT
     user_dropdown = WebDriverWait(driver, WAIT).until(
@@ -70,7 +70,7 @@ try:
     print("✔ Logout validado com assert.")
 
 except Exception as e:
-    print(f"❌ Erro durante o teste: {e}")
+    print(f" Erro durante o teste: {e}")
 
 finally:
     driver.quit()
