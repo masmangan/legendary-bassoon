@@ -107,12 +107,6 @@ Exemplo de snippet do teste:
 
 const { test, expect } = require('@playwright/test');
 
-test.describe('Claim Workflow Tests', () => {
-    const url = 'https://opensource-demo.orangehrmlive.com/web/index.php/auth/login';
-    const ADMIN_USERNAME = 'Admin';
-    const ADMIN_PASSWORD = 'admin123';
-    const remarksText = `Automated Claim ${Date.now()}`;
-
     test.beforeEach(async ({ page }) => {
         await page.goto(url);
         await page.getByPlaceholder('Username').fill(ADMIN_USERNAME);
