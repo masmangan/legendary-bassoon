@@ -1,26 +1,53 @@
-# Testes de Login/Logout - OrangeHRM
+# Testes Automatizados – Login/Logout (OrangeHRM)
 
-Este projeto contém um script automatizado em **Python** utilizando **Selenium WebDriver** para testar o fluxo completo de **Login e Logout** no sistema [OrangeHRM Demo](https://opensource-demo.orangehrmlive.com).
+Este projeto contém um teste automatizado em **Python** utilizando **Selenium WebDriver** para validar a jornada completa de **Login e Logout** no sistema OrangeHRM Demo.
 
-## Como executar
+O objetivo é garantir que o fluxo de autenticação esteja funcionando corretamente, validando automaticamente cada etapa através de asserts.
+
+------------------------------------------------------------
+
+##  Funcionalidades testadas
+
+- ✔️ Login com credenciais válidas
+- ✔️ Login inválido (com assert)
+- ✔️ Redirecionamento para o Dashboard
+- ✔️ Abertura do menu do usuário
+- ✔️ Logout
+- ✔️ Retorno à página de Login
+
+------------------------------------------------------------
+
+##  Como executar o teste
 
 1. Instale as dependências:
-   ```bash
-   pip install selenium
-   
-Execute o script:
+pip install selenium
 
-python login_logout_test.py
+2. Execute o script:
+python tests/login_logout_test.py
 
+O navegador abrirá automaticamente e realizará toda a jornada de forma visual.
 
-O teste valida:
+------------------------------------------------------------
 
-Login com credenciais válidas e inválidas
+##  Estrutura do projeto
 
-Redirecionamento ao Dashboard
+/tests
+ └── login_logout_test.py
+ └──README.md
+ └──.gitignore
+LICENSE
 
-Logout e retorno à tela de login
+------------------------------------------------------------
 
-## Autor
+##  Tecnologias utilizadas
 
-**Lucas Andrade**
+- Python 3
+- Selenium WebDriver
+- Google Chrome / ChromeDriver
+- OrangeHRM Demo
+
+------------------------------------------------------------
+
+##  Autor
+
+Lucas Andrade
