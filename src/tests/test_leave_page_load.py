@@ -19,15 +19,21 @@ class LeavePageTest(unittest.TestCase):
         driver.find_element(By.NAME, "password").send_keys("admin123")
         driver.find_element(By.XPATH, "//button[@type='submit']").click()
 
+        dashboard_header = wait.until(EC.presence_of_element_located(
+            (By.XPATH, "//h6[contains(., 'Dashboard') or contains(., 'Tablero')]")
+        ))
+        self.assertTrue(dashboard_header.is_displayed(), "❌ Falha: Dashboard não carregado após login")
+
         leave_tab = wait.until(EC.element_to_be_clickable(
             (By.XPATH, "//span[contains(., 'Leave') or contains(., 'Licencias') or contains(., 'Permisos')]")
         ))
         leave_tab.click()
 
-        wait.until(EC.presence_of_element_located((
+        from_date_label = wait.until(EC.presence_of_element_located((
             By.XPATH,
             "//label[contains(., 'From Date') or contains(., 'Desde') or contains(., 'De')]"
         )))
+        self.assertTrue(from_date_label.is_displayed(), "❌ Falha: página 'Leave' não carregou corretamente")
 
         print("✅ Teste OK: página 'Leave' carregada corretamente!")
 
