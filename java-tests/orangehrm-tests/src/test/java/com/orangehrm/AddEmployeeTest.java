@@ -1,75 +1,33 @@
 package com.orangehrm;
 
-import com.orangehrm.pages.LoginPage;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-
-import com.orangehrm.pages.AddEmployeePage;
-import org.junit.jupiter.api.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-
-import java.time.Duration;
-
-public class AddEmployeeTest {
-
-    private WebDriver driver;
-    private WebDriverWait wait;
-
- @BeforeEach
-public void setUp() {
-    WebDriverManager.chromedriver().setup();
-
-    ChromeOptions options = new ChromeOptions();
-
-    // 🔍 Detecta automaticamente o binário disponível
-    String[] possiblePaths = {
-        "/usr/bin/chromium",
-        "/usr/bin/chromium-browser",
-        "/usr/bin/google-chrome"
-    };
-    for (String path : possiblePaths) {
-        if (new java.io.File(path).exists()) {
-            options.setBinary(path);
-            System.out.println("✅ Usando navegador em: " + path);
-            break;
-        }
-    }
-
-    // ⚙️ Configurações para ambiente sem interface (Codespaces)
-    options.addArguments("--headless=new");
-    options.addArguments("--no-sandbox");
-    options.addArguments("--disable-dev-shm-usage");
-    options.addArguments("--window-size=1920,1080");
-
-    driver = new ChromeDriver(options);
-    wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-}
-
-
+public class AddEmployeeTest extends BaseTest {
 
     @Test
-    public void testAddEmployee() {
-        // Navega até a tela de PIM → Add Employee
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='PIM']"))).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Add Employee']"))).click();
+    void testAddEmployee() {
+        // Login
+        page.navigate("https://opensource-demo.orangehrmlive.com/");
+        page.fill("input[name='username']", "Admin");
+        page.fill("input[name='password']", "admin123");
+        page.click("button[type='submit']");
 
-        AddEmployeePage addEmployeePage = new AddEmployeePage(driver);
-        addEmployeePage.addEmployee("Helio", "Testador");
+        // Navegar para PIM
+        page.click("a[href='/web/index.php/pim/viewPimModule']");
 
-        Assertions.assertTrue(addEmployeePage.isEmployeeCreated(),
-                "Erro: O funcionário não foi criado corretamente.");
-    }
+        // Add Employee
+        page.click("button:has-text('Add')");
 
-    @AfterEach
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        page.fill("input[name='firstName']", "Helio");
+        page.fill("input[name='lastName']", "TestUser");
+
+        page.click("button[type='submit']");
+
+        // Verificar se redirecionou para Employee Profile
+        page.waitForSelector("h6:has-text('Personal Details')");
+        assertTrue(page.locator("h6").innerText().contains("Personal Details"));
     }
 }
+
+

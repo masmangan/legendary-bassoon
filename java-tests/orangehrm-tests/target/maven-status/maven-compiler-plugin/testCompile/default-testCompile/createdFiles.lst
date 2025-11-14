@@ -1,1 +1,3 @@
-com/orangehrm/SimpleTest.class
+com/orangehrm/BaseTest.class
+com/orangehrm/AddEmployeeTest.class
+com/orangehrm/LoginTest.class

@@ -8,7 +8,7 @@
   <name>orangehrm-tests</name>
   <url>http://maven.apache.org</url>
  <dependencies>
-    <!-- JUnit 5 -->
+
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter</artifactId>
@@ -16,20 +16,20 @@
         <scope>test</scope>
     </dependency>
 
-    <!-- Selenium WebDriver -->
     <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
         <version>4.23.0</version>
     </dependency>
 
-    <!-- WebDriverManager -->
     <dependency>
-        <groupId>io.github.bonigarcia</groupId>
-        <artifactId>webdrivermanager</artifactId>
-        <version>5.9.2</version>
+        <groupId>com.microsoft.playwright</groupId>
+        <artifactId>playwright</artifactId>
+        <version>1.44.0</version> 
     </dependency>
+
 </dependencies>
+
 <build>
     <plugins>
         <plugin>

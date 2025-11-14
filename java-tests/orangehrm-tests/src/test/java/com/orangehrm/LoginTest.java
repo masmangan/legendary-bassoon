@@ -1,67 +1,21 @@
 package com.orangehrm;
 
-import org.junit.jupiter.api.*;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.*;
-import org.openqa.selenium.support.ui.*;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.Duration;
-
-public class LoginTest {
-
-    private WebDriver driver;
-    private WebDriverWait wait;
-
-
-@BeforeEach
-public void setUp() {
-    WebDriverManager.chromedriver().setup();
-
-    ChromeOptions options = new ChromeOptions();
-
-    // 🔍 Detecta automaticamente o binário disponível
-    String[] possiblePaths = {
-        "/usr/bin/chromium",
-        "/usr/bin/chromium-browser",
-        "/usr/bin/google-chrome"
-    };
-    for (String path : possiblePaths) {
-        if (new java.io.File(path).exists()) {
-            options.setBinary(path);
-            System.out.println("✅ Usando navegador em: " + path);
-            break;
-        }
-    }
-
-    // ⚙️ Configurações para ambiente sem interface (Codespaces)
-    options.addArguments("--headless=new");
-    options.addArguments("--no-sandbox");
-    options.addArguments("--disable-dev-shm-usage");
-    options.addArguments("--window-size=1920,1080");
-
-    driver = new ChromeDriver(options);
-    wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-}
-
+public class LoginTest extends BaseTest {
 
     @Test
-    public void testLoginComSucesso() {
-        driver.get("https://opensource-demo.orangehrmlive.com/");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("username"))).sendKeys("Admin");
-        driver.findElement(By.name("password")).sendKeys("admin123");
-        driver.findElement(By.cssSelector("button[type='submit']")).click();
+    void testSuccessfulLogin() {
+        page.navigate("https://opensource-demo.orangehrmlive.com/");
 
-        // Verifica se login deu certo
-        boolean dashboardVisivel = wait.until(ExpectedConditions
-                .urlContains("/dashboard"));
-        Assertions.assertTrue(dashboardVisivel, "Falha ao fazer login!");
-    }
+        page.fill("input[name='username']", "Admin");
+        page.fill("input[name='password']", "admin123");
+        page.click("button[type='submit']");
 
-    @AfterEach
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        // Verificação do dashboard
+        assertTrue(
+            page.locator("h6").first().innerText().contains("Dashboard")
+        );
     }
 }

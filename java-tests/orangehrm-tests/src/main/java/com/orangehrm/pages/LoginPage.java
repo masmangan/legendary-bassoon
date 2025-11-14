@@ -1,41 +1,36 @@
 package com.orangehrm.pages;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
+import com.microsoft.playwright.Page;
 
 public class LoginPage {
 
-    private WebDriver driver;
-    private WebDriverWait wait;
+    private Page page;
 
-    private By usernameField = By.name("username");
-    private By passwordField = By.name("password");
-    private By loginButton = By.cssSelector("button[type='submit']");
-    private By errorMessage = By.cssSelector(".oxd-alert-content-text");
+    private String usernameField = "input[name='username']";
+    private String passwordField = "input[name='password']";
+    private String loginButton   = "button[type='submit']";
+    private String errorMessage  = ".oxd-alert-content-text";
 
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    public LoginPage(Page page) {
+        this.page = page;
     }
 
     public void open() {
-        driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+        page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
     }
 
     public void login(String username, String password) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(usernameField)).sendKeys(username);
-        driver.findElement(passwordField).sendKeys(password);
-        driver.findElement(loginButton).click();
+        page.fill(usernameField, username);
+        page.fill(passwordField, password);
+        page.click(loginButton);
     }
 
     public boolean isDashboardVisible() {
-        wait.until(ExpectedConditions.urlContains("/dashboard"));
-        return driver.getCurrentUrl().contains("/dashboard");
+        page.waitForURL("**/dashboard");
+        return page.url().contains("/dashboard");
     }
 
     public String getErrorMessage() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage)).getText();
+        return page.textContent(errorMessage);
     }
 }
