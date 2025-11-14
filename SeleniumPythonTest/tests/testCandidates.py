@@ -166,7 +166,7 @@ class TestCandidates(unittest.TestCase):
         confirm_delete_button.click()
         time.sleep(SLEEP)
 
-        try
+        try:
             success_message = WebDriverWait(driver, WAIT).until(
                 EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'oxd-toast--success')]")))
                         
