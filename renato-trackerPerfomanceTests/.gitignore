@@ -1,0 +1,12 @@
+# Editor-specific files
+.vscode/
+.idea/
+
+# Test files
+.pytest_cache/
+.coverage
+htmlcov/
+target/
+surefire-reports/
+
+*.png
