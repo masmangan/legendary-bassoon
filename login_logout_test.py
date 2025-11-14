@@ -4,21 +4,33 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
+"""
+Jornada de Usuário – Login/Logout
+
+1. Acessar página de login.
+2. Inserir usuário.
+3. Inserir senha.
+4. Clicar em Login.
+5. Validar chegada ao Dashboard.
+6. Abrir menu do usuário.
+7. Clicar em Logout.
+8. Validar retorno à página de login.
+"""
+
 # Configurações
 BASE_URL = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
 USERNAME = "Admin"
 PASSWORD = "admin123"
-WAIT = 10     # segundos para WebDriverWait
-SLEEP = 2     # segundos de pausa padrão
+WAIT = 10
+SLEEP = 2
 
-# Inicializar navegador
 driver = webdriver.Chrome()
-driver.maximize_window()
 driver.get(BASE_URL)
+driver.maximize_window()
 time.sleep(SLEEP)
 
 try:
-    # ===== LOGIN =====
+    # LOGIN
     username_input = WebDriverWait(driver, WAIT).until(
         EC.visibility_of_element_located((By.CSS_SELECTOR, "input[placeholder='Username']"))
     )
@@ -29,36 +41,37 @@ try:
 
     login_button = driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
     login_button.click()
-    time.sleep(SLEEP)
 
-    # Verificar se login foi bem-sucedido
-    dashboard_element = WebDriverWait(driver, WAIT).until(
+    # ASSERT LOGIN
+    dashboard_title = WebDriverWait(driver, WAIT).until(
         EC.visibility_of_element_located((By.XPATH, "//h6[text()='Dashboard']"))
     )
-    print("\n Login realizado com sucesso!")
+    assert dashboard_title.is_displayed(), "ERRO: Dashboard não apareceu após login!"
 
-    # ===== LOGOUT =====
+    print("✔ Login validado com assert.")
+
+    # LOGOUT
     user_dropdown = WebDriverWait(driver, WAIT).until(
         EC.element_to_be_clickable((By.CLASS_NAME, "oxd-userdropdown-name"))
     )
     user_dropdown.click()
-    time.sleep(SLEEP)
 
     logout_button = WebDriverWait(driver, WAIT).until(
         EC.element_to_be_clickable((By.XPATH, "//a[text()='Logout']"))
     )
     logout_button.click()
-    time.sleep(SLEEP)
 
-    # Verificar se logout funcionou
-    login_header = WebDriverWait(driver, WAIT).until(
+    # ASSERT LOGOUT
+    login_title = WebDriverWait(driver, WAIT).until(
         EC.visibility_of_element_located((By.XPATH, "//h5[text()='Login']"))
     )
-    print("Logout realizado com sucesso!")
+    assert login_title.is_displayed(), "ERRO: Tela de login não apareceu após logout!"
+
+    print("✔ Logout validado com assert.")
 
 except Exception as e:
-    print(f"\n Erro durante o teste: {e}")
+    print(f"❌ Erro durante o teste: {e}")
 
 finally:
     driver.quit()
-    print("\n Teste finalizado.")
+    print("Teste finalizado.")
