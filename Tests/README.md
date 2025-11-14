@@ -1,56 +1,53 @@
-Testes Automatizados – Login/Logout (OrangeHRM)
+# Testes Automatizados – Login/Logout (OrangeHRM)
 
-Este repositório contém um teste automatizado desenvolvido em Python usando Selenium WebDriver para validar a jornada de usuário de Login e Logout no sistema OrangeHRM Demo.
+Este projeto contém um teste automatizado em **Python** utilizando **Selenium WebDriver** para validar a jornada completa de **Login e Logout** no sistema OrangeHRM Demo.
 
-O objetivo é garantir que o fluxo principal de autenticação funcione corretamente.
+O objetivo é garantir que o fluxo de autenticação esteja funcionando corretamente, validando automaticamente cada etapa através de asserts.
 
-Como executar o teste
-1. Instale as dependências
+------------------------------------------------------------
+
+##  Funcionalidades testadas
+
+- ✔️ Login com credenciais válidas
+- ✔️ Login inválido (com assert)
+- ✔️ Redirecionamento para o Dashboard
+- ✔️ Abertura do menu do usuário
+- ✔️ Logout
+- ✔️ Retorno à página de Login
+
+------------------------------------------------------------
+
+##  Como executar o teste
+
+1. Instale as dependências:
 pip install selenium
 
-2. Execute o script
+2. Execute o script:
 python tests/login_logout_test.py
 
+O navegador abrirá automaticamente e realizará toda a jornada de forma visual.
 
-O navegador abrirá automaticamente e realizará:
+------------------------------------------------------------
 
-Login com credenciais válidas
+##  Estrutura do projeto
 
-Verificação do Dashboard
-
-Logout
-
-Retorno à página de Login
-
- Funcionalidades testadas
-
-Login válido
-
-Login inválido (assert)
-
-Acesso ao Dashboard
-
-Logout e retorno à tela de Login
-
-Asserts para validação automática
-
- Estrutura do projeto
 /tests
-   └── login_logout_test.py
-   └── README.md
-   └──.gitignore
+ └── login_logout_test.py
+ └──README.md
+ └──.gitignore
 LICENSE
 
- Ferramentas utilizadas
+------------------------------------------------------------
 
-Python 3
+##  Tecnologias utilizadas
 
-Selenium WebDriver
+- Python 3
+- Selenium WebDriver
+- Google Chrome / ChromeDriver
+- OrangeHRM Demo
 
-Google Chrome / ChromeDriver
+------------------------------------------------------------
 
-OrangeHRM Demo
-
- Autor
+##  Autor
 
 Lucas Andrade
