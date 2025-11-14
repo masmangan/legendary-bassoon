@@ -1,21 +1,30 @@
-# Arquivos do ambiente virtual
+# Ambientes virtuais
 venv/
+env/
+.venv/
+.env/
+
+# Cache do Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# Arquivos de configuração locais
-*.env
-.env
-
-# Arquivos temporários do sistema
-.DS_Store
-Thumbs.db
+# Configurações do VSCode
+.vscode/
 
 # Logs
 *.log
 
-# Configurações do VSCode e IDEs
-.vscode/
-.idea/
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Drivers do Selenium (caso existam localmente)
+chromedriver
+chromedriver.exe
+geckodriver
