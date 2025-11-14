@@ -67,7 +67,7 @@ try:
     )
     assert login_title.is_displayed(), "ERRO: Tela de login não apareceu após logout!"
 
-    print("✔ Logout validado com assert.")
+    print(" Logout validado com assert.")
 
 except Exception as e:
     print(f" Erro durante o teste: {e}")
