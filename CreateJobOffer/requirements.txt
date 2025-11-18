@@ -1,0 +1,21 @@
+# Dependências para testes Selenium - Orange HRM
+# Verificação e Validação de Software - PUCRS 2025/II
+
+# Selenium WebDriver
+selenium==4.15.2
+
+# Gerenciador de drivers
+webdriver-manager==4.0.1
+
+# Framework de testes
+pytest==7.4.3
+pytest-html==4.1.1
+pytest-xdist==3.5.0
+
+# Relatórios e cobertura
+pytest-cov==4.1.0
+allure-pytest==2.13.2
+
+# Utilities
+python-dotenv==1.0.0
+
